@@ -10,11 +10,24 @@ const corsOptions = require('./config/corsOptions');
 
 connectDB()
 
+app.use(function(req, res, next) {
+    // res.header("Access-Control-Allow-Origin", "*");
+    const allowedOrigins = ['http://localhost:3000', 'https://themarketplace.onrender.com/'];
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+         res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-credentials", true);
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
+    next();
+})
+
 // middleware
 app.use(express.json()); // tells server to accept json data
 app.use(express.urlencoded({ extended: false}));
 
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/products', require('./routes/productsRoutes'))
