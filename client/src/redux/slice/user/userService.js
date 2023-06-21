@@ -4,12 +4,12 @@ import  axiosInstance  from "../../../apicalls/axiosinstance"
 const URL = '/api/users'
 
 const createUser = async ( userData ) => {
-    const response = await axios.post('https://themarketplace.onrender.com/', userData)
+    const response = await axios.post('https://themarketplace.onrender.com/api/users', userData)
     return response.data
 }
 
 const loginUser = async ( userData ) => {
-    const response = await axios.post('https://themarketplace.onrender.com/login', userData)
+    const response = await axios.post('https://themarketplace.onrender.com/api/users/login', userData)
     return response.data
 }
 
