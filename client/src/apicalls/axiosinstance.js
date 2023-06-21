@@ -2,7 +2,7 @@ import axios from "axios";
 import { getSessionToken } from "../utils/storage";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:5000"
+    baseURL: "https://themarketplace.onrender.com/"
 });
 
 axiosInstance.interceptors.request.use((config) => {
