@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { getAllProducts, resetProductStatus} from '../../redux/slice/product/productSlice'
 import Filters from './Filters'
 import { BsFilter } from 'react-icons/bs'
+import { Alert, Space } from 'antd'
 
 
 const Home = () => {
@@ -17,7 +18,7 @@ const Home = () => {
   const [searchText, setSearchText] = useState('');
   const [showFilters, setShowFilters] = useState(true)
 
-  const { products, isSuccess } = useSelector((state) => state.product)
+  const { products, isSuccess, isLoading } = useSelector((state) => state.product)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -47,6 +48,7 @@ const Home = () => {
           <form 
             className='flex items-center w-full' 
             onSubmit={(e) => {
+              e.preventDefault()
               setFilters({
                 ...filters,
                 search: searchText
@@ -64,6 +66,7 @@ const Home = () => {
             <div className={`flex gap-2 ${ hasSearched ?' ml-[-180px]' : ' ml-[-100px]'}`}>
               {hasSearched && <button
                 className='border border-solid px-5 rounded gap-2 items-center  shadow-sm cursor-pointer bg-white h-8 text-sm  hover:bg-primary hover:text-white'
+                type='button'
                 onClick={() => {
                   setSearchText('')
                   setFilters({
@@ -76,6 +79,7 @@ const Home = () => {
                 Clear
               </button>}
               <button
+                type='submit'
                 className='bg-primary px-5 rounded gap-2 items-center text-white shadow-sm cursor-pointer border-0 h-8 text-sm'
                 disabled={searchText.trim() === ''}
               >
@@ -84,7 +88,7 @@ const Home = () => {
             </div>
           </form>
         </div>
-        <div className={`w-full grid grid-cols-1 ${showFilters ? 'md:grid-cols-2' : 'md:grid-cols-3'} lg:grid-cols-3 xl:grid-cols-4 gap-5`}>
+        {products.length > 0 ?(<div className={`w-full grid grid-cols-1 ${showFilters ? 'md:grid-cols-2' : 'md:grid-cols-3'} lg:grid-cols-3 xl:grid-cols-4 gap-5`}>
           {products?.map(product => 
             <div 
               className=' border-gray-300 overflow-hidden rounded-md shadow-md flex flex-col gap-5 bg-white hover:shadow-2xl cursor-pointer'
@@ -99,10 +103,18 @@ const Home = () => {
               </div>
             </div>
           )}
-        </div>
+        </div>): 
+        <Space
+          direction="vertical"
+          style={{
+          width: '100%',
+          }}
+        >
+          <Alert message="There are no products to display " banner />
+        </Space> }
       </div>
     </div>)
-  )
+  ) 
 }
 
 export default Home

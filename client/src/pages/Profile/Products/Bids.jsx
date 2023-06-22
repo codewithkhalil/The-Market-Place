@@ -70,7 +70,7 @@ const Bids = ({
             <Divider />
             <h1 className='text-xl text-gray-500'>Product Name: {selectedProduct?.name}</h1>
 
-            <Table columns={columns} dataSource={bids} />
+            <Table columns={columns} dataSource={bids} className='overflow-x-scroll no-scrollbar' />
         </div>
 
         

@@ -1,4 +1,4 @@
-import { Modal } from 'antd'
+import { Alert, Modal, Space } from 'antd'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ const Notifications = ({
         centered
         width={600}
     >
-        <div className='flex flex-col gap-2'>
+        {notifications.length > 0 ?<div className='flex flex-col gap-2'>
             {notifications?.map(notification => (
                 <div className="flex p-2 flex-col border border-gray-300 border-solid rounded mt-5 text-gray-700 hover:border-none hover:shadow-xl cursor-pointer"
                 >
@@ -44,7 +44,15 @@ const Notifications = ({
                     </div>
                 </div>
             ))}
-        </div>
+        </div> : <Space
+          direction="vertical"
+          style={{
+          width: '100%',
+          }}
+          className="mt-2"
+        >
+          <Alert message="There are no notifications to display " banner />
+        </Space>}
     </Modal>
   )
 }
