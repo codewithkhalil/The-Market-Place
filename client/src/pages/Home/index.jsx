@@ -18,7 +18,7 @@ const Home = () => {
   const [searchText, setSearchText] = useState('');
   const [showFilters, setShowFilters] = useState(true)
 
-  const { products, isSuccess, isLoading } = useSelector((state) => state.product)
+  const { products, isSuccess } = useSelector((state) => state.product)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -88,7 +88,7 @@ const Home = () => {
             </div>
           </form>
         </div>
-        {products.length > 0 ?(<div className={`w-full grid grid-cols-1 ${showFilters ? 'md:grid-cols-2' : 'md:grid-cols-3'} lg:grid-cols-3 xl:grid-cols-4 gap-5`}>
+        {products?.length > 0 ?(<div className={`w-full grid grid-cols-1 ${showFilters ? 'md:grid-cols-2' : 'md:grid-cols-3'} lg:grid-cols-3 xl:grid-cols-4 gap-5`}>
           {products?.map(product => 
             <div 
               className=' border-gray-300 overflow-hidden rounded-md shadow-md flex flex-col gap-5 bg-white hover:shadow-2xl cursor-pointer'
